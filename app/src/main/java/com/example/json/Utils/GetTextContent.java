@@ -12,6 +12,12 @@ public class GetTextContent {
     private static ArrayList<String> name = new ArrayList<>();
     private static ArrayList<String> referenceBrand = new ArrayList<>();
 
+    public static ArrayList<String> getReferenceModelImage() {
+        return referenceModelImage;
+    }
+
+    private static ArrayList<String> referenceModelImage = new ArrayList<>();
+
 
     public static ArrayList<String> getReferenceBrand() {
         return referenceBrand;
@@ -77,15 +83,28 @@ public class GetTextContent {
 
         ArrayList<String> splitNames = GetSplitName(beginingPatternAll, endPatternAll, beginingPattern, endPattern, url);
         for (String splitName : splitNames) {
-//            Log.i("MyResult",splitName);
             Pattern pattern = Pattern.compile("alt=\"(.*?)\">");
             Matcher matcher = pattern.matcher(splitName);
             while (matcher.find()) {
                 model.add(matcher.group(1));
             }
         }
+        getImageModelURL(splitNames);
         return model;
     }
+
+    public static Void getImageModelURL (ArrayList<String> splitnames) {
+        for (String splitName: splitnames) {
+            Pattern patternImageModel = Pattern.compile("=\"/(.*?)\" ");
+            Matcher matcherImageModel = patternImageModel.matcher(splitName);
+            while (matcherImageModel.find()) {
+                Log.i("MyResult","https://xn--80actcpdfk0f.xn--p1ai/" + matcherImageModel.group(1));
+                referenceModelImage.add("https://xn--80actcpdfk0f.xn--p1ai/" + matcherImageModel.group(1));
+            }
+        }
+        return null;
+    }
+
 
     public static Bitmap GetImageBrand(String url) {
         ArrayList<String> model = new ArrayList<>();
