@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,23 +35,27 @@ public class BrandActivity extends AppCompatActivity {
         textViewBrand = findViewById(R.id.textViewBrand);
         listViewBrand = findViewById(R.id.listViewBrand);
         imageViewLogoBrand = findViewById(R.id.imageViewLogoBrand);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         String urlBrand = intent.getStringExtra("referenceBrand");
-        String nameBrand = intent.getStringExtra("brend");
+        final String nameBrand = intent.getStringExtra("brend");
         textViewBrand.setText(nameBrand);
         name = GetTextContent.GetNameBrandArray(urlBrand);
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_expandable_list_item_1,name);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, name);
         listViewBrand.setAdapter(adapter);
         Bitmap bitmap = GetTextContent.GetImageBrand(urlBrand);
         if (bitmap != null) {
-            imageViewLogoBrand.setImageBitmap(GetTextContent.GetImageBrand(urlBrand));
+            imageViewLogoBrand.setImageBitmap(bitmap);
         }
-        listViewBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            }
-        });
+            listViewBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intentToModel = new Intent(getApplicationContext(), ModelActivity.class);
+                    intentToModel.putExtra("name", name.get(position));
+                    intentToModel.putExtra("imageURL", GetTextContent.getReferenceModelImage().get(position));
+                    startActivity(intentToModel);
+                }
+            });
 
     }
 }

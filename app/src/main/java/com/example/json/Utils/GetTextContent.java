@@ -31,7 +31,7 @@ public class GetTextContent {
         Matcher matcherAll = patternAll.matcher(toPattern);
         while (matcherAll.find()) {
             splitContent.add(matcherAll.group(1));
-//            Log.i("MyResult",matcherAll.group(1));
+            Log.i("Split",matcherAll.group(1));
         }
         for (String splitContects : splitContent) {
             Pattern patternName = Pattern.compile(beginingPattern + "(.*?)" + endPattern);
@@ -94,6 +94,7 @@ public class GetTextContent {
     }
 
     public static Void getImageModelURL (ArrayList<String> splitnames) {
+        referenceModelImage.clear();
         for (String splitName: splitnames) {
             Pattern patternImageModel = Pattern.compile("=\"/(.*?)\" ");
             Matcher matcherImageModel = patternImageModel.matcher(splitName);

@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">JSON</string>
+    <string name="logo_model">Логотипы моделей</string>
+    
+    <string-array name="consumables">
+        <item>Фильтр масляный</item>
+        <item>Фильтр воздущный</item>
+        <item>Фильтр салонный</item>
+        <item>Фильтр топливный</item>
+        <item>Свечи зажигания</item>
+        <item>Колодки тормозные передние</item>
+        <item>Колодки тормозные задние</item>
+        <item>Щетка стеклоочистителя водителя</item>
+        <item>Щетка стеклоочистителя пасажира</item>
+
+
+
+    </string-array>
 </resources>

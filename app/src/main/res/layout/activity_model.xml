@@ -14,10 +14,10 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <ImageView
-        android:id="@+id/imageViewLogoBrand"
+        android:id="@+id/imageViewLogoModel"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:contentDescription="Логотипы китайских производителей"
+        android:contentDescription="@string/logo_model"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,19 +25,20 @@
         app:srcCompat="@drawable/logo_china_auto" />
 
     <ListView
-        android:id="@+id/listViewBrand"
+        android:id="@+id/listViewConsumables"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:entries="@array/consumables"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewBrand">
+        app:layout_constraintTop_toBottomOf="@id/textViewModel">
 
 
     </ListView>
 
     <TextView
-        android:id="@+id/textViewBrand"
+        android:id="@+id/textViewModel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
