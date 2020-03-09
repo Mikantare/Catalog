@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">JSON</string>
     <string name="logo_model">Логотипы моделей</string>
-    
+    <string name="radio_button_2_4_mitsubishi">2.4 mitsubishi</string>
+    <string name="radio_button_1_6_1_8_2_0_acteco">1.6 1.8 2.0 Acteco</string>
+    <string name="radio_button_1_8_2_0_acteco">1.8 2.0 Acteco</string>
+    <string name="radio_button_1_6_e4g">1.6 E4G</string>
+    <string name="radio_button_1_6_2_0_acteco">1.6 2.0 Acteco</string>
+
     <string-array name="consumables">
         <item>Фильтр масляный</item>
         <item>Фильтр воздущный</item>
@@ -12,7 +17,6 @@
         <item>Колодки тормозные задние</item>
         <item>Щетка стеклоочистителя водителя</item>
         <item>Щетка стеклоочистителя пасажира</item>
-
 
 
     </string-array>

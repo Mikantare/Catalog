@@ -45,6 +45,7 @@ public class GetTextContent {
     }
 
     public static ArrayList<String> GetNameArray() {
+        name.clear();
         String chinaMobileURL = "https://xn--80actcpdfk0f.xn--p1ai/";
         String beginingPatternAll = "<li class";
         String endPatternAll = " </li></ul>";
@@ -99,7 +100,6 @@ public class GetTextContent {
             Pattern patternImageModel = Pattern.compile("=\"/(.*?)\" ");
             Matcher matcherImageModel = patternImageModel.matcher(splitName);
             while (matcherImageModel.find()) {
-                Log.i("MyResult","https://xn--80actcpdfk0f.xn--p1ai/" + matcherImageModel.group(1));
                 referenceModelImage.add("https://xn--80actcpdfk0f.xn--p1ai/" + matcherImageModel.group(1));
             }
         }

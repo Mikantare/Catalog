@@ -50,10 +50,17 @@ public class BrandActivity extends AppCompatActivity {
             listViewBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intentToModel = new Intent(getApplicationContext(), ModelActivity.class);
-                    intentToModel.putExtra("name", name.get(position));
-                    intentToModel.putExtra("imageURL", GetTextContent.getReferenceModelImage().get(position));
-                    startActivity(intentToModel);
+                    if (name.get(position).equals("Chery Tiggo") || name.get(position).equals("Chery Tiggo FL") || name.get(position).equals("Chery M11 M12")) {
+                        Intent intentToModel = new Intent(getApplicationContext(), TiggoModelActivity.class);
+                        intentToModel.putExtra("name", name.get(position));
+                        intentToModel.putExtra("imageURL", GetTextContent.getReferenceModelImage().get(position));
+                        startActivity(intentToModel);
+                    } else {
+                        Intent intentToModel = new Intent(getApplicationContext(), ModelActivity.class);
+                        intentToModel.putExtra("name", name.get(position));
+                        intentToModel.putExtra("imageURL", GetTextContent.getReferenceModelImage().get(position));
+                        startActivity(intentToModel);
+                    }
                 }
             });
 
