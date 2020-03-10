@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.json.Utils.GetJSONFromNetwork;
 import com.example.json.Utils.GetTextContent;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         referenceBrand = GetTextContent.getReferenceBrand();
         ArrayAdapter<String> adapter= new ArrayAdapter(this,android.R.layout.simple_expandable_list_item_1, nameBrand);
         listViewChinaCar.setAdapter(adapter);
+        GetJSONFromNetwork.buildURLSearch();
         listViewChinaCar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
