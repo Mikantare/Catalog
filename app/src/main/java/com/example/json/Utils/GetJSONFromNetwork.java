@@ -1,13 +1,21 @@
 package com.example.json.Utils;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.telephony.SmsManager;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 public class GetJSONFromNetwork {
     private static final String BASE_URL_SEARCH = "https://www.zzap.ru/webservice/datasharing.asmx/GetSearchResultV3";
@@ -44,19 +52,61 @@ public class GetJSONFromNetwork {
                 .appendQueryParameter(PARAMS_API_CLASS_MAN, CLASS_MAN)
                 .appendQueryParameter(PARAMS_API_CODE_REGION, CODE_REGION)
                 .appendQueryParameter(PARAMS_API_ROW_COUNT, ROW_COUNT)
-                .appendQueryParameter(PARAMS_API_TYPE_REQUEST,TYPE_REQUEST)
+                .appendQueryParameter(PARAMS_API_TYPE_REQUEST, TYPE_REQUEST)
                 .appendQueryParameter(PARAMS_API_KEY, API_KEY).build();
         try {
             searchURL = new URL(uri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        Log.i("Result",uri.toString());
+        Log.i("Result", uri.toString());
         return searchURL;
     }
 
     public static JSONObject getJSONFromNetwork() {
-        return null;
+        JSONObject result = null;
+        URL url = buildURLSearch();
+        try {
+            result = new JSONLoadTask().execute(url).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private static class JSONLoadTask extends AsyncTask<URL, Void, JSONObject> {
+        @Override
+        protected JSONObject doInBackground(URL... urls) {
+            JSONObject searchJSON = null;
+            if (urls == null || urls.length == 0) {
+                return searchJSON;
+            }
+            HttpURLConnection httpURLConnection = null;
+            try {
+                httpURLConnection = (HttpURLConnection) urls[0].openConnection();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                StringBuilder stringBuilder = new StringBuilder();
+                String line =bufferedReader.readLine();
+                while (line != null) {
+                    stringBuilder.append(line);
+                    line = bufferedReader.readLine();
+                }
+                searchJSON =new JSONObject(buildURLSearch().toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+            }
+            return searchJSON;
+        }
     }
 
 }
