@@ -5,6 +5,9 @@ import android.os.AsyncTask;
 import android.telephony.SmsManager;
 import android.util.Log;
 
+import com.example.json.Data.Part;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,6 +18,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class GetJSONFromNetwork {
@@ -43,6 +47,15 @@ public class GetJSONFromNetwork {
     private static final String TYPE_REQUEST = "";
     private static final String SEARCH_TEXT = "";
 
+    //    информация о детали
+    private static final String KEY_RESULT = "table";
+    private static final String KEY_PART_NUMBER = "partnumber";
+    private static final String KEY_CLASS_MAN = "class_man";
+    private static final String KEY_PART_NAME = "class_cat";
+    private static final String KEY_DELIVEY_TIME = "delivery_days";
+    private static final String KEY_COUNT = "qty";
+    private static final String KEY_PRICE = "descr_price_orig";
+
 
     public static URL buildURLSearch() {
         URL searchURL = null;
@@ -63,6 +76,36 @@ public class GetJSONFromNetwork {
         }
         Log.i("Result", uri.toString());
         return searchURL;
+    }
+//    Для проверки
+
+
+    public static String getClassMan() {
+        return CLASS_MAN;
+    }
+
+    public static ArrayList <Part> getPartsFromJSON (JSONObject jsonObject) {
+        ArrayList <Part> result = new ArrayList<>();
+        if (jsonObject == null) {
+            return result;
+        }
+        try {
+            JSONArray jsonArray = jsonObject.getJSONArray(KEY_RESULT);
+            for (int i =0; i < jsonArray.length(); i++) {
+                JSONObject objectParts = jsonArray.getJSONObject(i);
+                String partNumber = objectParts.getString(KEY_PART_NUMBER);
+                String classMan = objectParts.getString(KEY_CLASS_MAN);
+                String partName = objectParts.getString(KEY_PART_NAME);
+                int deliveryTime = objectParts.getInt(KEY_DELIVEY_TIME);
+                String count = objectParts.getString(KEY_COUNT);
+                String price = objectParts.getString(KEY_PRICE);
+                Part part = new Part(partNumber,classMan,partName,deliveryTime,count,price);
+                result.add(part);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public static JSONObject getJSONFromNetwork() {
@@ -92,12 +135,12 @@ public class GetJSONFromNetwork {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 StringBuilder stringBuilder = new StringBuilder();
-                String line =bufferedReader.readLine();
+                String line = bufferedReader.readLine();
                 while (line != null) {
                     stringBuilder.append(line);
                     line = bufferedReader.readLine();
                 }
-                searchJSON =new JSONObject(buildURLSearch().toString());
+                searchJSON = new JSONObject(buildURLSearch().toString());
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {

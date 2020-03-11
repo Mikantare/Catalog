@@ -1,19 +1,29 @@
 package com.example.json.Data;
 
-public class Parts {
+public class Part {
 
     private String partNumber;
     private String classMan;
     private String partName;
-    private String quantity;
+    private int deliveryTime;
+    private String count;
     private String price;
 
-    public Parts(String partNumber, String classMan, String partName, String quantity, String price) {
+    public Part(String partNumber, String classMan, String partName, int deliveryTime, String quantity, String price) {
         this.partNumber = partNumber;
         this.classMan = classMan;
         this.partName = partName;
-        this.quantity = quantity;
+        this.deliveryTime = deliveryTime;
+        this.count = quantity;
         this.price = price;
+    }
+
+    public int getDeliveryTime() {
+        return deliveryTime;
+    }
+
+    public void setDeliveryTime(int deliveryTime) {
+        this.deliveryTime = deliveryTime;
     }
 
     public String getPartNumber() {
@@ -40,12 +50,12 @@ public class Parts {
         this.partName = partName;
     }
 
-    public String getQuantity() {
-        return quantity;
+    public String getCount() {
+        return count;
     }
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
+    public void setCount(String count) {
+        this.count = count;
     }
 
     public String getPrice() {
