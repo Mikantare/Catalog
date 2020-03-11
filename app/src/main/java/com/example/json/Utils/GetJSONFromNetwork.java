@@ -79,7 +79,6 @@ public class GetJSONFromNetwork {
     }
 //    Для проверки
 
-
     public static String getClassMan() {
         return CLASS_MAN;
     }
@@ -108,7 +107,7 @@ public class GetJSONFromNetwork {
         return result;
     }
 
-    public static JSONObject getJSONFromNetwork() {
+    public static JSONObject getJSON() {
         JSONObject result = null;
         URL url = buildURLSearch();
         try {
@@ -118,6 +117,7 @@ public class GetJSONFromNetwork {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        Log.i("Result","" + result);
         return result;
     }
 
@@ -140,7 +140,7 @@ public class GetJSONFromNetwork {
                     stringBuilder.append(line);
                     line = bufferedReader.readLine();
                 }
-                searchJSON = new JSONObject(buildURLSearch().toString());
+                searchJSON = new JSONObject(stringBuilder.toString());
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -150,6 +150,7 @@ public class GetJSONFromNetwork {
                     httpURLConnection.disconnect();
                 }
             }
+            Log.i("Result","привет" + searchJSON);
             return searchJSON;
         }
     }

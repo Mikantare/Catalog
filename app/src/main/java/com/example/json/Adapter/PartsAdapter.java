@@ -17,6 +17,10 @@ public class PartsAdapter extends RecyclerView.Adapter<PartsAdapter.PartsViewHol
 
     ArrayList <Part> parts;
 
+    public void setParts(ArrayList<Part> parts) {
+        this.parts = parts;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
