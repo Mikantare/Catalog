@@ -20,6 +20,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GetJSONFromNetwork {
     private static final String BASE_URL_SEARCH = "https://www.zzap.ru/webservice/datasharing.asmx/GetSearchResultV3";
@@ -74,7 +76,6 @@ public class GetJSONFromNetwork {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        Log.i("Result", uri.toString());
         return searchURL;
     }
 //    Для проверки
@@ -95,7 +96,7 @@ public class GetJSONFromNetwork {
                 String partNumber = objectParts.getString(KEY_PART_NUMBER);
                 String classMan = objectParts.getString(KEY_CLASS_MAN);
                 String partName = objectParts.getString(KEY_PART_NAME);
-                int deliveryTime = objectParts.getInt(KEY_DELIVEY_TIME);
+                String deliveryTime = (Integer.toString(objectParts.getInt(KEY_DELIVEY_TIME)));
                 String count = objectParts.getString(KEY_COUNT);
                 String price = objectParts.getString(KEY_PRICE);
                 Part part = new Part(partNumber,classMan,partName,deliveryTime,count,price);
@@ -112,12 +113,11 @@ public class GetJSONFromNetwork {
         URL url = buildURLSearch();
         try {
             result = new JSONLoadTask().execute(url).get();
-        } catch (ExecutionException e) {
+            } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Log.i("Result","" + result);
         return result;
     }
 
@@ -140,7 +140,15 @@ public class GetJSONFromNetwork {
                     stringBuilder.append(line);
                     line = bufferedReader.readLine();
                 }
-                searchJSON = new JSONObject(stringBuilder.toString());
+                String splitResult = null;
+                Pattern pattern = Pattern.compile("www.zzap.ru/\">(.*?)</string>");
+                Matcher matcher = pattern.matcher(stringBuilder.toString());
+                while (matcher.find()) {
+                    splitResult =   matcher.group(1);
+                }
+                Log.i("Result2","" + splitResult);
+                searchJSON = new JSONObject(splitResult);
+//
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -150,7 +158,7 @@ public class GetJSONFromNetwork {
                     httpURLConnection.disconnect();
                 }
             }
-            Log.i("Result","привет" + searchJSON);
+
             return searchJSON;
         }
     }

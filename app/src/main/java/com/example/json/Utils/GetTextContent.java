@@ -31,7 +31,6 @@ public class GetTextContent {
         Matcher matcherAll = patternAll.matcher(toPattern);
         while (matcherAll.find()) {
             splitContent.add(matcherAll.group(1));
-            Log.i("Split",matcherAll.group(1));
         }
         for (String splitContects : splitContent) {
             Pattern patternName = Pattern.compile(beginingPattern + "(.*?)" + endPattern);

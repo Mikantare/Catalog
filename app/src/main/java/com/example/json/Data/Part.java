@@ -5,11 +5,11 @@ public class Part {
     private String partNumber;
     private String classMan;
     private String partName;
-    private int deliveryTime;
+    private String deliveryTime;
     private String count;
     private String price;
 
-    public Part(String partNumber, String classMan, String partName, int deliveryTime, String quantity, String price) {
+    public Part(String partNumber, String classMan, String partName, String deliveryTime, String quantity, String price) {
         this.partNumber = partNumber;
         this.classMan = classMan;
         this.partName = partName;
@@ -18,11 +18,11 @@ public class Part {
         this.price = price;
     }
 
-    public int getDeliveryTime() {
+    public String getDeliveryTime() {
         return deliveryTime;
     }
 
-    public void setDeliveryTime(int deliveryTime) {
+    public void setDeliveryTime(String deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
 
