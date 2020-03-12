@@ -43,9 +43,9 @@ public class GetJSONFromNetwork {
 
 
     private static final String CODE_REGION = "11111";
-    private static final String PARTNUMBER = "481h-1012010";
-    private static final String CLASS_MAN = "CHERY";
-    private static final String ROW_COUNT = "5";
+//    private static final String PARTNUMBER = "A211109111";
+//    private static final String CLASS_MAN = "CHERY";
+    private static final String ROW_COUNT = "200";
     private static final String TYPE_REQUEST = "";
     private static final String SEARCH_TEXT = "";
 
@@ -54,19 +54,20 @@ public class GetJSONFromNetwork {
     private static final String KEY_PART_NUMBER = "partnumber";
     private static final String KEY_CLASS_MAN = "class_man";
     private static final String KEY_PART_NAME = "class_cat";
-    private static final String KEY_DELIVEY_TIME = "delivery_days";
+    private static final String KEY_DELIVEY_TIME = "descr_delivery";
     private static final String KEY_COUNT = "qty";
     private static final String KEY_PRICE = "descr_price_orig";
+    private static final String KEY_CLASS_USER = "class_user";
 
 
-    public static URL buildURLSearch() {
+    public static URL buildURLSearch(String partNumber, String classMan) {
         URL searchURL = null;
         Uri uri = Uri.parse(BASE_URL_SEARCH).buildUpon()
                 .appendQueryParameter(PARAMS_API_LOGIN, LOGIN)
                 .appendQueryParameter(PARAMS_API_PASSWORD, PASSWORD)
                 .appendQueryParameter(PARAMS_API_SEARCH_TEXT, SEARCH_TEXT)
-                .appendQueryParameter(PARAMS_API_PARTNUMBER, PARTNUMBER)
-                .appendQueryParameter(PARAMS_API_CLASS_MAN, CLASS_MAN)
+                .appendQueryParameter(PARAMS_API_PARTNUMBER, partNumber)
+                .appendQueryParameter(PARAMS_API_CLASS_MAN, classMan)
                 .appendQueryParameter(PARAMS_API_CODE_REGION, CODE_REGION)
                 .appendQueryParameter(PARAMS_API_ROW_COUNT, ROW_COUNT)
                 .appendQueryParameter(PARAMS_API_TYPE_REQUEST, TYPE_REQUEST)
@@ -78,11 +79,7 @@ public class GetJSONFromNetwork {
         }
         return searchURL;
     }
-//    Для проверки
 
-    public static String getClassMan() {
-        return CLASS_MAN;
-    }
 
     public static ArrayList <Part> getPartsFromJSON (JSONObject jsonObject) {
         ArrayList <Part> result = new ArrayList<>();
@@ -96,11 +93,13 @@ public class GetJSONFromNetwork {
                 String partNumber = objectParts.getString(KEY_PART_NUMBER);
                 String classMan = objectParts.getString(KEY_CLASS_MAN);
                 String partName = objectParts.getString(KEY_PART_NAME);
-                String deliveryTime = (Integer.toString(objectParts.getInt(KEY_DELIVEY_TIME)));
+                String deliveryTime = objectParts.getString(KEY_DELIVEY_TIME);
                 String count = objectParts.getString(KEY_COUNT);
                 String price = objectParts.getString(KEY_PRICE);
-                Part part = new Part(partNumber,classMan,partName,deliveryTime,count,price);
-                result.add(part);
+                if (objectParts.getString(KEY_CLASS_USER).equals("ИП Плотников С.И.")) {
+                    Part part = new Part(partNumber, classMan, partName, deliveryTime, count, price);
+                    result.add(part);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -108,9 +107,9 @@ public class GetJSONFromNetwork {
         return result;
     }
 
-    public static JSONObject getJSON() {
+    public static JSONObject getJSON(String partNumber, String classMan) {
         JSONObject result = null;
-        URL url = buildURLSearch();
+        URL url = buildURLSearch(partNumber, classMan);
         try {
             result = new JSONLoadTask().execute(url).get();
             } catch (ExecutionException e) {

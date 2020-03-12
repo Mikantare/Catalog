@@ -6,29 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".ShopActivity">
 
+
+
     <ImageView
         android:id="@+id/imageViewLogoModel"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal0.5"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_china_auto" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guidelineHorizontal0.5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="140dp" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/guidelineVertical0.5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="216dp" />
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVertical0.65"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVertical0.85"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
 
     <TextView
         android:id="@+id/textViewModelName"
@@ -40,52 +56,47 @@
         app:layout_constraintStart_toEndOf="@+id/imageViewLogoModel"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
+
 
         <TextView
             android:id="@+id/textViewName"
             style="@style/part_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="Наименование"
-            android:textSize="10sp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guidelineVertical0.5"
+            app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal0.5"
+            android:text="Наименование" />
 
         <TextView
             android:id="@+id/textViewCount"
             style="@style/part_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Колличество"
-            android:textSize="10sp" />
+            app:layout_constraintStart_toEndOf="@id/guidelineVertical0.5"
+            app:layout_constraintEnd_toStartOf="@id/guidelineVertical0.65"
+            app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal0.5"
+            android:text="Колличество" />
 
         <TextView
             android:id="@+id/textViewDeliveryTime"
             style="@style/part_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Срок поставки"
-            android:textSize="10sp" />
+            app:layout_constraintStart_toEndOf="@id/guidelineVertical0.65"
+            app:layout_constraintEnd_toStartOf="@id/guidelineVertical0.85"
+            app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal0.5"
+            android:text="Срок поставки" />
 
         <TextView
             android:id="@+id/textViewPrice"
             style="@style/part_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Цена"
-            android:textSize="10sp" />
-    </LinearLayout>
+            app:layout_constraintStart_toEndOf="@id/textViewDeliveryTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal0.5"
+            android:text="Цена" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewShop"
@@ -94,7 +105,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@id/textViewPrice" />
 
     <TextView
         android:id="@+id/textViewNameNumber"
@@ -102,15 +113,18 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="№"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertical0.5"
         app:layout_constraintTop_toBottomOf="@+id/textViewModelName" />
 
     <TextView
         android:id="@+id/textViewPartNumber"
+        style="@style/part_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/part_item"
+        android:layout_margin="8dp"
         android:text="TextView"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewNameNumber"
         app:layout_constraintTop_toBottomOf="@+id/textViewModelName" />
@@ -121,7 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="Производитель"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertical0.5"
         app:layout_constraintTop_toBottomOf="@+id/textViewPartNumber" />
 
     <TextView
@@ -130,6 +144,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertical0.5"
         app:layout_constraintTop_toBottomOf="@+id/textViewBrandItemName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

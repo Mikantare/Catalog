@@ -37,7 +37,7 @@ public class BrandActivity extends AppCompatActivity {
         imageViewLogoBrand = findViewById(R.id.imageViewLogoBrand);
         final Intent intent = getIntent();
         String urlBrand = intent.getStringExtra("referenceBrand");
-        final String nameBrand = intent.getStringExtra("brend");
+        final String nameBrand = intent.getStringExtra("brand");
         textViewBrand.setText(nameBrand);
         name = GetTextContent.GetNameBrandArray(urlBrand);
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, name);
@@ -54,11 +54,13 @@ public class BrandActivity extends AppCompatActivity {
                         Intent intentToModel = new Intent(getApplicationContext(), TiggoModelActivity.class);
                         intentToModel.putExtra("name", name.get(position));
                         intentToModel.putExtra("imageURL", GetTextContent.getReferenceModelImage().get(position));
+                        intentToModel.putExtra("brand",nameBrand);
                         startActivity(intentToModel);
                     } else {
                         Intent intentToModel = new Intent(getApplicationContext(), ModelActivity.class);
                         intentToModel.putExtra("name", name.get(position));
                         intentToModel.putExtra("imageURL", GetTextContent.getReferenceModelImage().get(position));
+                        intentToModel.putExtra("brand",nameBrand);
                         startActivity(intentToModel);
                     }
                 }

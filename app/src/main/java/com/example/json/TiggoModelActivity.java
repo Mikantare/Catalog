@@ -29,8 +29,9 @@ public class TiggoModelActivity extends AppCompatActivity {
         radioGroupConfigurationTiggoFL = findViewById(R.id.radioGroupConfigurationTiggoFL);
         radioGroupConfigurationM11 = findViewById(R.id.radioGroupConfigurationM11);
         Intent intent = getIntent();
-        String nameModel = intent.getStringExtra("name");
-        String imageNameURL = intent.getStringExtra("imageURL");
+        final String nameModel = intent.getStringExtra("name");
+        final String imageNameURL = intent.getStringExtra("imageURL");
+        final String nameBrand = intent.getStringExtra("brand");
         if (nameModel.equals("Chery Tiggo")) {
             radioGroupConfigurationTiggo.setVisibility(View.VISIBLE);
             radioGroupConfigurationTiggoFL.setVisibility(View.INVISIBLE);

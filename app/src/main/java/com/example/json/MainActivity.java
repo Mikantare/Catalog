@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(),BrandActivity.class);
-                intent.putExtra("brend", nameBrand.get(position));
+                intent.putExtra("brand", nameBrand.get(position));
                 intent.putExtra("referenceBrand",referenceBrand.get(position));
                 startActivity(intent);
             }

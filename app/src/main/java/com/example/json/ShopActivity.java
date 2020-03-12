@@ -24,6 +24,7 @@ public class ShopActivity extends AppCompatActivity {
     private RecyclerView recyclerViewShop;
     private TextView textViewPartNumber;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +37,16 @@ public class ShopActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String nameModel = intent.getStringExtra("name");
         final String imageNameURL = intent.getStringExtra("imageURL");
-        textViewProducedBy.setText(GetJSONFromNetwork.getClassMan());
+        final String nameBrand = intent.getStringExtra("brand");
+        final String partNumber = intent.getStringExtra("partNumber");
+        textViewPartNumber.setText(partNumber);
+        textViewProducedBy.setText(nameBrand);
         textViewModelName.setText(nameModel);
         imageViewLogoModel.setImageBitmap(NetworkUtils.getImage(imageNameURL));
         PartsAdapter adapter = new PartsAdapter();
         recyclerViewShop.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewShop.setAdapter(adapter);
-        ArrayList <Part> parts =GetJSONFromNetwork.getPartsFromJSON(GetJSONFromNetwork.getJSON());
-        textViewPartNumber.setText("" + parts.size());
+        ArrayList <Part> parts =GetJSONFromNetwork.getPartsFromJSON(GetJSONFromNetwork.getJSON(partNumber,nameBrand));
         adapter.setParts(parts);
     }
 }
